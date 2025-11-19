@@ -1,0 +1,22 @@
+{
+  "source": "threat_intelligence_correlator",
+  "found": false,
+  "ip_address": "8.8.8.8",
+  "threat_actors": [],
+  "malware_families": [],
+  "campaigns": [],
+  "timeline": {
+    "first_seen": null,
+    "last_seen": null,
+    "activity_span_days": 0
+  },
+  "techniques": [],
+  "threat_types": [],
+  "confidence": "NONE",
+  "has_apt_attribution": false,
+  "is_c2_server": false,
+  "is_botnet": false,
+  "otx_pulse_count": 0,
+  "threatfox_ioc_count": 0,
+  "mitre_group_count": 0
+}

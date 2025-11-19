@@ -1,0 +1,27 @@
+{
+  "5.255.118.39": {
+    "apt_group": "MuddyWater",
+    "pulse_name": "DHCSpy - Discovering the Iranian APT MuddyWater.",
+    "pulse_id": "68ebfd548dabf23ec646f52e"
+  },
+  "147.235.149.44": {
+    "apt_group": "Charming Kitten",
+    "pulse_name": "Comprehensive Threat Intelligence Report: Charming Kitten.",
+    "pulse_id": "68f0cb6d31ce2260dba39eac"
+  },
+  "193.188.88.156": {
+    "apt_group": "Charming Kitten",
+    "pulse_name": "Comprehensive Threat Intelligence Report: Charming Kitten.",
+    "pulse_id": "68f0cb6d31ce2260dba39eac"
+  },
+  "213.151.38.229": {
+    "apt_group": "Charming Kitten",
+    "pulse_name": "Comprehensive Threat Intelligence Report: Charming Kitten.",
+    "pulse_id": "68f0cb6d31ce2260dba39eac"
+  },
+  "158.101.230.195": {
+    "apt_group": "Charming Kitten",
+    "pulse_name": "Comprehensive Threat Intelligence Report: Charming Kitten.",
+    "pulse_id": "68f0cb6d31ce2260dba39eac"
+  }
+}

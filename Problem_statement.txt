@@ -1,0 +1,27 @@
+ AI-Driven Threat Intelligence Correlation Engine (TICE) 
+Context 
+Cybercrime investigators often face the challenge of manually verifying the reputation and 
+activity of suspicious IP addresses across multiple threat intelligence feeds. Each source 
+provides partial information — one may indicate malware hosting, another botnet activity, 
+another open ports — but the data is fragmented and inconsistent. 
+Problem 
+Investigators need a single, consolidated dashboard that can automatically aggregate, 
+normalize, and correlate threat intelligence data from multiple public sources to rapidly 
+attribute and assess the risk level of an IP address. 
+Objective 
+Develop a Threat Intelligence Correlation Engine (TICE) that can: 
+• Automatically query multiple open-source threat intel APIs. 
+• Normalize and consolidate data from these sources into a unified reputation profile. 
+• Provide a summarized Threat Attribution Report answering key questions like: 
+o Is the IP malicious or benign? 
+o What categories of threat (botnet, C2, phishing, spam, proxy)? 
+o What is its geolocation and ASN? 
+o What related domains or URLs are linked to it? 
+Constraints / Requirements 
+• Can be implemented as a web dashboard, CLI tool, or REST API. 
+• Must include a threat scoring mechanism — combine data to produce a final 
+confidence or severity score. 
+Expected Deliverables 
+• Working prototype that accepts an IP address input and outputs a consolidated threat 
+profile. 
+• Visualization of threat scores, categories, and API results. 

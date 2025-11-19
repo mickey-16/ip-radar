@@ -1,0 +1,17 @@
+{
+  "43.224.8.183": {
+    "apt_group": "APT36",
+    "pulse_name": "New APT36 IPs",
+    "pulse_id": "6908a57f14d85520998914d0"
+  },
+  "43.224.8.177": {
+    "apt_group": "APT36",
+    "pulse_name": "New APT36 IPs",
+    "pulse_id": "69036214608bdba17484c3a5"
+  },
+  "43.224.8.167": {
+    "apt_group": "APT36",
+    "pulse_name": "New APT36 IPs",
+    "pulse_id": "68ff7ac36bf8f615e5993d45"
+  }
+}

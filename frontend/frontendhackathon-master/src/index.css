@@ -1,0 +1,136 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    /* Light theme (avoid blue/purple shades; use teal/mint/green/orange/grey) */
+    --background: 0 0% 100%; /* white */
+    --foreground: 210 6% 14%; /* dark gray for text */
+
+    --card: 0 0% 100%;
+    --card-foreground: 210 6% 14%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 210 6% 14%;
+
+    /* Primary = Teal #20c997 */
+    --primary: 162 73% 46%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Secondary: neutral soft gray */
+    --secondary: 210 8% 96%;
+    --secondary-foreground: 210 6% 14%;
+
+    --muted: 210 8% 96%;
+    --muted-foreground: 210 6% 50%;
+
+    --accent: 162 73% 46%;
+    --accent-foreground: 0 0% 100%;
+
+    /* Destructive: Red #DC3545 */
+    --destructive: 354 72% 56%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 210 8% 90%;
+    --input: 210 8% 96%;
+    --ring: 162 73% 46%;
+
+    --radius: 0.5rem;
+
+    /* Success & Warning */
+    --success: 134 53% 41%; /* green #28A745 */
+    --warning: 23 97% 46%; /* orange #FD7E14 */
+    --info: 162 73% 46%; /* teal for informational */
+
+    --sidebar-background: 0 0% 100%;
+
+    --sidebar-foreground: 210 6% 14%;
+
+    --sidebar-primary: 210 6% 10%;
+
+    --sidebar-primary-foreground: 0 0% 100%;
+
+    --sidebar-accent: 0 0% 98%;
+
+    --sidebar-accent-foreground: 210 6% 14%;
+
+    --sidebar-border: 210 6% 94%;
+
+    --sidebar-ring: 162 73% 46%;
+  }
+
+  .dark {
+    /* Dark theme: dark background with teal/muted accents (no blue/purple shades) */
+    --background: 210 8% 8%; /* near-black neutral */
+    --foreground: 0 0% 98%; /* white-ish text */
+
+    --card: 210 8% 12%;
+    --card-foreground: 0 0% 98%;
+
+    --popover: 210 8% 12%;
+    --popover-foreground: 0 0% 98%;
+
+    /* Primary (teal) slightly lighter for contrast on dark bg */
+    --primary: 162 73% 56%;
+    --primary-foreground: 210 8% 8%;
+
+    --secondary: 210 8% 18%;
+    --secondary-foreground: 0 0% 98%;
+
+    --muted: 210 8% 18%;
+    --muted-foreground: 210 8% 68%;
+
+    --accent: 162 73% 56%;
+    --accent-foreground: 210 8% 8%;
+
+    --destructive: 354 72% 56%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 210 8% 14%;
+    --input: 210 8% 18%;
+    --ring: 162 73% 56%;
+
+    --sidebar-background: 210 8% 8%;
+    --sidebar-foreground: 0 0% 98%;
+    --sidebar-primary: 210 8% 12%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 210 8% 10%;
+    --sidebar-accent-foreground: 0 0% 98%;
+    --sidebar-border: 210 8% 14%;
+    --sidebar-ring: 162 73% 56%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Hide Google Maps error dialogs */
+.gm-err-container,
+.gm-err-content,
+.gm-err-title,
+.gm-err-message,
+div[style*="background-color: white"][style*="padding: 15px"] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+/* Hide Google Maps default error overlay */
+.dismissButton,
+.gm-style-mtc,
+.gm-err-autocomplete {
+  display: none !important;
+}

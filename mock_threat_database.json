@@ -1,0 +1,592 @@
+{
+  "mock_threat_ips": {
+    "1.222.92.35": {
+      "is_malicious": true,
+      "threat_level": "CRITICAL",
+      "country": "China",
+      "threat_actor": "APT41 (Double Dragon)",
+      "threat_type": "Advanced Persistent Threat (APT)",
+      "categories": ["C2 Server", "Espionage", "APT Infrastructure"],
+      "first_seen": "2024-03-15",
+      "last_seen": "2025-11-05",
+      "confidence_score": 95,
+      "abuse_score": 92,
+      "description": "C2 infrastructure linked to APT41, a Chinese state-sponsored threat group targeting telecommunications and healthcare sectors in India and Southeast Asia.",
+      "mitre_attack": {
+        "tactics": [
+          "Initial Access",
+          "Persistence",
+          "Command and Control",
+          "Exfiltration"
+        ],
+        "techniques": [
+          {
+            "id": "T1566.001",
+            "name": "Phishing: Spearphishing Attachment",
+            "description": "APT41 uses spearphishing with malicious attachments to gain initial access"
+          },
+          {
+            "id": "T1059.001",
+            "name": "Command and Scripting Interpreter: PowerShell",
+            "description": "PowerShell used for execution and establishing persistence"
+          },
+          {
+            "id": "T1071.001",
+            "name": "Application Layer Protocol: Web Protocols",
+            "description": "HTTPS-based C2 communication to blend with normal traffic"
+          },
+          {
+            "id": "T1041",
+            "name": "Exfiltration Over C2 Channel",
+            "description": "Data exfiltration through encrypted C2 channels"
+          },
+          {
+            "id": "T1587.001",
+            "name": "Develop Capabilities: Malware",
+            "description": "Custom malware development for targeted operations"
+          }
+        ],
+        "associated_groups": ["APT41", "Wicked Panda", "Double Dragon"],
+        "campaign": "Operation ShadowPad India - Targeting government and critical infrastructure",
+        "target_sectors": ["Government", "Healthcare", "Telecommunications", "Education"],
+        "target_regions": ["India", "Bangladesh", "Sri Lanka", "Nepal"]
+      },
+      "ports": [443, 8080, 8443, 3389],
+      "malware_families": ["ShadowPad", "Cobalt Strike", "PlugX"],
+      "ioc_references": [
+        "CERT-In Advisory CIAD-2024-0089",
+        "FireEye APT41 Report 2024"
+      ]
+    },
+    "1.225.51.122": {
+      "is_malicious": true,
+      "threat_level": "HIGH",
+      "country": "North Korea",
+      "threat_actor": "Lazarus Group (Hidden Cobra)",
+      "threat_type": "Advanced Persistent Threat (APT)",
+      "categories": ["Botnet", "Financial Crime", "APT Infrastructure"],
+      "first_seen": "2024-06-22",
+      "last_seen": "2025-11-06",
+      "confidence_score": 89,
+      "abuse_score": 87,
+      "description": "Infrastructure associated with Lazarus Group targeting Indian financial institutions and cryptocurrency exchanges.",
+      "mitre_attack": {
+        "tactics": [
+          "Initial Access",
+          "Execution",
+          "Defense Evasion",
+          "Impact"
+        ],
+        "techniques": [
+          {
+            "id": "T1566.002",
+            "name": "Phishing: Spearphishing Link",
+            "description": "Spearphishing campaigns targeting finance sector employees"
+          },
+          {
+            "id": "T1204.002",
+            "name": "User Execution: Malicious File",
+            "description": "Social engineering to trick users into executing malware"
+          },
+          {
+            "id": "T1027",
+            "name": "Obfuscated Files or Information",
+            "description": "Heavily obfuscated malware to evade detection"
+          },
+          {
+            "id": "T1486",
+            "name": "Data Encrypted for Impact",
+            "description": "Ransomware deployment for financial gain"
+          },
+          {
+            "id": "T1565.001",
+            "name": "Data Manipulation: Stored Data Manipulation",
+            "description": "Manipulation of financial transaction data"
+          }
+        ],
+        "associated_groups": ["Lazarus Group", "Hidden Cobra", "TEMP.Hermit"],
+        "campaign": "Operation DreamJob - Targeting cryptocurrency and DeFi platforms in India",
+        "target_sectors": ["Financial Services", "Cryptocurrency", "Banking", "Technology"],
+        "target_regions": ["India", "South Korea", "Japan", "Singapore"]
+      },
+      "ports": [80, 443, 8080, 9001],
+      "malware_families": ["AppleJeus", "Dacls", "RATANKBA"],
+      "ioc_references": [
+        "CISA Alert AA24-187A",
+        "US-CERT Lazarus Group Advisory"
+      ]
+    },
+    "1.235.192.131": {
+      "is_malicious": true,
+      "threat_level": "CRITICAL",
+      "country": "Pakistan",
+      "threat_actor": "APT36 (Transparent Tribe)",
+      "threat_type": "Advanced Persistent Threat (APT)",
+      "categories": ["Espionage", "APT Infrastructure", "C2 Server"],
+      "first_seen": "2023-11-10",
+      "last_seen": "2025-11-07",
+      "confidence_score": 93,
+      "abuse_score": 90,
+      "description": "Pakistani state-sponsored APT36 infrastructure actively targeting Indian military, government, and defense organizations.",
+      "mitre_attack": {
+        "tactics": [
+          "Reconnaissance",
+          "Initial Access",
+          "Persistence",
+          "Collection",
+          "Command and Control"
+        ],
+        "techniques": [
+          {
+            "id": "T1592.002",
+            "name": "Gather Victim Host Information: Software",
+            "description": "Reconnaissance of target systems and software"
+          },
+          {
+            "id": "T1566.001",
+            "name": "Phishing: Spearphishing Attachment",
+            "description": "Weaponized documents targeting defense personnel"
+          },
+          {
+            "id": "T1547.001",
+            "name": "Boot or Logon Autostart Execution: Registry Run Keys",
+            "description": "Registry persistence mechanisms"
+          },
+          {
+            "id": "T1113",
+            "name": "Screen Capture",
+            "description": "Capturing sensitive information from victim screens"
+          },
+          {
+            "id": "T1071.004",
+            "name": "Application Layer Protocol: DNS",
+            "description": "DNS tunneling for C2 communication"
+          }
+        ],
+        "associated_groups": ["APT36", "Transparent Tribe", "Mythic Leopard"],
+        "campaign": "Operation Sindoor - Espionage against Indian defense and government",
+        "target_sectors": ["Defense", "Government", "Military", "Diplomatic"],
+        "target_regions": ["India", "Afghanistan", "Bangladesh"]
+      },
+      "ports": [53, 443, 8443, 9443],
+      "malware_families": ["Crimson RAT", "ObliqueRAT", "CrimsonRAT"],
+      "ioc_references": [
+        "CERT-In APT36 Alert 2024",
+        "Proofpoint Transparent Tribe Report"
+      ]
+    },
+    "1.236.160.55": {
+      "is_malicious": true,
+      "threat_level": "HIGH",
+      "country": "Russia",
+      "threat_actor": "APT28 (Fancy Bear)",
+      "threat_type": "Advanced Persistent Threat (APT)",
+      "categories": ["Espionage", "C2 Server", "APT Infrastructure"],
+      "first_seen": "2024-01-18",
+      "last_seen": "2025-11-04",
+      "confidence_score": 91,
+      "abuse_score": 88,
+      "description": "Russian military intelligence (GRU) APT28 infrastructure conducting cyber espionage operations.",
+      "mitre_attack": {
+        "tactics": [
+          "Initial Access",
+          "Credential Access",
+          "Lateral Movement",
+          "Exfiltration"
+        ],
+        "techniques": [
+          {
+            "id": "T1190",
+            "name": "Exploit Public-Facing Application",
+            "description": "Exploiting vulnerabilities in web applications"
+          },
+          {
+            "id": "T1110.003",
+            "name": "Brute Force: Password Spraying",
+            "description": "Password spraying attacks against organizational accounts"
+          },
+          {
+            "id": "T1021.001",
+            "name": "Remote Services: Remote Desktop Protocol",
+            "description": "RDP for lateral movement within networks"
+          },
+          {
+            "id": "T1048.003",
+            "name": "Exfiltration Over Alternative Protocol: Exfiltration Over Unencrypted Non-C2 Protocol",
+            "description": "Data exfiltration using alternative protocols"
+          }
+        ],
+        "associated_groups": ["APT28", "Fancy Bear", "Sofacy", "Sednit"],
+        "campaign": "Operation Grey Falcon - Targeting diplomatic and government entities",
+        "target_sectors": ["Government", "Diplomatic", "Defense", "Media"],
+        "target_regions": ["Global", "Europe", "Asia"]
+      },
+      "ports": [22, 443, 3389, 8080],
+      "malware_families": ["X-Agent", "Sofacy", "Zebrocy"],
+      "ioc_references": [
+        "NSA/CISA APT28 Advisory",
+        "Microsoft Threat Intelligence Report"
+      ]
+    },
+    "1.246.248.62": {
+      "is_malicious": true,
+      "threat_level": "CRITICAL",
+      "country": "China",
+      "threat_actor": "APT10 (Stone Panda)",
+      "threat_type": "Advanced Persistent Threat (APT)",
+      "categories": ["Espionage", "APT Infrastructure", "Data Theft"],
+      "first_seen": "2024-04-08",
+      "last_seen": "2025-11-05",
+      "confidence_score": 94,
+      "abuse_score": 91,
+      "description": "Chinese MSS-affiliated APT10 targeting managed service providers and cloud infrastructure in India.",
+      "mitre_attack": {
+        "tactics": [
+          "Initial Access",
+          "Execution",
+          "Persistence",
+          "Defense Evasion",
+          "Collection"
+        ],
+        "techniques": [
+          {
+            "id": "T1078.004",
+            "name": "Valid Accounts: Cloud Accounts",
+            "description": "Compromising cloud service accounts for access"
+          },
+          {
+            "id": "T1059.003",
+            "name": "Command and Scripting Interpreter: Windows Command Shell",
+            "description": "Using cmd.exe for malicious activities"
+          },
+          {
+            "id": "T1053.005",
+            "name": "Scheduled Task/Job: Scheduled Task",
+            "description": "Persistence through scheduled tasks"
+          },
+          {
+            "id": "T1070.004",
+            "name": "Indicator Removal: File Deletion",
+            "description": "Deleting logs and evidence to evade detection"
+          },
+          {
+            "id": "T1560.001",
+            "name": "Archive Collected Data: Archive via Utility",
+            "description": "Compressing stolen data before exfiltration"
+          }
+        ],
+        "associated_groups": ["APT10", "Stone Panda", "MenuPass", "POTASSIUM"],
+        "campaign": "Operation Cloud Hopper - MSP and cloud infrastructure targeting",
+        "target_sectors": ["Managed Services", "Cloud Providers", "Technology", "Telecommunications"],
+        "target_regions": ["India", "Japan", "South Korea", "Southeast Asia"]
+      },
+      "ports": [443, 8080, 8443, 50050],
+      "malware_families": ["QuasarRAT", "PlugX", "RedLeaves"],
+      "ioc_references": [
+        "DOJ APT10 Indictment",
+        "PWC Operation Cloud Hopper Report"
+      ]
+    },
+    "2.54.97.134": {
+      "is_malicious": true,
+      "threat_level": "HIGH",
+      "country": "Iran",
+      "threat_actor": "APT33 (Elfin)",
+      "threat_type": "Advanced Persistent Threat (APT)",
+      "categories": ["Espionage", "Sabotage", "APT Infrastructure"],
+      "first_seen": "2024-07-12",
+      "last_seen": "2025-11-06",
+      "confidence_score": 87,
+      "abuse_score": 85,
+      "description": "Iranian state-sponsored APT33 targeting energy and aviation sectors with destructive capabilities.",
+      "mitre_attack": {
+        "tactics": [
+          "Initial Access",
+          "Execution",
+          "Persistence",
+          "Impact"
+        ],
+        "techniques": [
+          {
+            "id": "T1566.002",
+            "name": "Phishing: Spearphishing Link",
+            "description": "Credential harvesting through phishing campaigns"
+          },
+          {
+            "id": "T1203",
+            "name": "Exploitation for Client Execution",
+            "description": "Exploiting software vulnerabilities for code execution"
+          },
+          {
+            "id": "T1136.001",
+            "name": "Create Account: Local Account",
+            "description": "Creating backdoor accounts for persistence"
+          },
+          {
+            "id": "T1485",
+            "name": "Data Destruction",
+            "description": "Destructive wiper malware capabilities"
+          }
+        ],
+        "associated_groups": ["APT33", "Elfin", "Holmium", "Refined Kitten"],
+        "campaign": "Operation Shamoon 3.0 - Targeting energy infrastructure",
+        "target_sectors": ["Energy", "Oil & Gas", "Aviation", "Government"],
+        "target_regions": ["Middle East", "Asia", "Global"]
+      },
+      "ports": [80, 443, 8080, 8443],
+      "malware_families": ["Shamoon", "Dropshot", "Turnedup"],
+      "ioc_references": [
+        "FireEye APT33 Analysis",
+        "Saudi Aramco Incident Report"
+      ]
+    },
+    "2.55.64.191": {
+      "is_malicious": true,
+      "threat_level": "CRITICAL",
+      "country": "China",
+      "threat_actor": "APT15 (Vixen Panda)",
+      "threat_type": "Advanced Persistent Threat (APT)",
+      "categories": ["Espionage", "APT Infrastructure", "C2 Server"],
+      "first_seen": "2023-09-20",
+      "last_seen": "2025-11-07",
+      "confidence_score": 92,
+      "abuse_score": 89,
+      "description": "Chinese espionage group APT15 targeting diplomatic and trade organizations in South Asia.",
+      "mitre_attack": {
+        "tactics": [
+          "Initial Access",
+          "Execution",
+          "Defense Evasion",
+          "Command and Control",
+          "Exfiltration"
+        ],
+        "techniques": [
+          {
+            "id": "T1189",
+            "name": "Drive-by Compromise",
+            "description": "Watering hole attacks on frequently visited websites"
+          },
+          {
+            "id": "T1106",
+            "name": "Native API",
+            "description": "Direct Windows API calls to evade detection"
+          },
+          {
+            "id": "T1055",
+            "name": "Process Injection",
+            "description": "Injecting malicious code into legitimate processes"
+          },
+          {
+            "id": "T1573.001",
+            "name": "Encrypted Channel: Symmetric Cryptography",
+            "description": "Encrypted C2 communications"
+          },
+          {
+            "id": "T1020",
+            "name": "Automated Exfiltration",
+            "description": "Automated data collection and exfiltration"
+          }
+        ],
+        "associated_groups": ["APT15", "Vixen Panda", "Ke3chang", "Playful Dragon"],
+        "campaign": "Operation Diplomatic Orbiter - Trade and diplomatic espionage",
+        "target_sectors": ["Diplomatic", "Trade", "Government", "Think Tanks"],
+        "target_regions": ["India", "Myanmar", "Thailand", "Indonesia"]
+      },
+      "ports": [443, 8080, 8888, 9443],
+      "malware_families": ["RoyalCli", "RoyalDNS", "BS2005"],
+      "ioc_references": [
+        "NCC Group APT15 Report",
+        "CERT-In Diplomatic Sector Alert"
+      ]
+    },
+    "2.55.85.196": {
+      "is_malicious": true,
+      "threat_level": "HIGH",
+      "country": "North Korea",
+      "threat_actor": "Kimsuky (Thallium)",
+      "threat_type": "Advanced Persistent Threat (APT)",
+      "categories": ["Espionage", "Credential Theft", "APT Infrastructure"],
+      "first_seen": "2024-02-14",
+      "last_seen": "2025-11-05",
+      "confidence_score": 88,
+      "abuse_score": 86,
+      "description": "North Korean Kimsuky group conducting cyber espionage and credential harvesting operations.",
+      "mitre_attack": {
+        "tactics": [
+          "Reconnaissance",
+          "Initial Access",
+          "Credential Access",
+          "Collection"
+        ],
+        "techniques": [
+          {
+            "id": "T1589.002",
+            "name": "Gather Victim Identity Information: Email Addresses",
+            "description": "Harvesting email addresses for targeted campaigns"
+          },
+          {
+            "id": "T1598.003",
+            "name": "Phishing for Information: Spearphishing Link",
+            "description": "Credential phishing through fake login pages"
+          },
+          {
+            "id": "T1555.003",
+            "name": "Credentials from Password Stores: Credentials from Web Browsers",
+            "description": "Stealing credentials stored in web browsers"
+          },
+          {
+            "id": "T1114.001",
+            "name": "Email Collection: Local Email Collection",
+            "description": "Stealing email data from compromised systems"
+          }
+        ],
+        "associated_groups": ["Kimsuky", "Thallium", "Velvet Chollima", "Black Banshee"],
+        "campaign": "Operation Stolen Pencil - Think tank and academic espionage",
+        "target_sectors": ["Research", "Think Tanks", "Academia", "Government"],
+        "target_regions": ["South Korea", "India", "US", "Europe"]
+      },
+      "ports": [80, 443, 8080, 8443],
+      "malware_families": ["BabyShark", "AppleSeed", "PebbleDash"],
+      "ioc_references": [
+        "CISA Kimsuky Alert",
+        "Volexity Kimsuky Analysis"
+      ]
+    },
+    "2.55.122.202": {
+      "is_malicious": true,
+      "threat_level": "CRITICAL",
+      "country": "Russia",
+      "threat_actor": "APT29 (Cozy Bear)",
+      "threat_type": "Advanced Persistent Threat (APT)",
+      "categories": ["Espionage", "APT Infrastructure", "C2 Server"],
+      "first_seen": "2024-05-03",
+      "last_seen": "2025-11-06",
+      "confidence_score": 96,
+      "abuse_score": 93,
+      "description": "Russian SVR APT29 infrastructure conducting sophisticated espionage operations against government entities.",
+      "mitre_attack": {
+        "tactics": [
+          "Initial Access",
+          "Execution",
+          "Persistence",
+          "Defense Evasion",
+          "Command and Control"
+        ],
+        "techniques": [
+          {
+            "id": "T1195.002",
+            "name": "Supply Chain Compromise: Compromise Software Supply Chain",
+            "description": "SolarWinds-style supply chain attacks"
+          },
+          {
+            "id": "T1059.001",
+            "name": "Command and Scripting Interpreter: PowerShell",
+            "description": "PowerShell for malicious script execution"
+          },
+          {
+            "id": "T1098",
+            "name": "Account Manipulation",
+            "description": "Modifying accounts to maintain access"
+          },
+          {
+            "id": "T1027.010",
+            "name": "Obfuscated Files or Information: Command Obfuscation",
+            "description": "Heavily obfuscated commands and scripts"
+          },
+          {
+            "id": "T1071.001",
+            "name": "Application Layer Protocol: Web Protocols",
+            "description": "HTTPS-based C2 with domain fronting"
+          }
+        ],
+        "associated_groups": ["APT29", "Cozy Bear", "The Dukes", "Nobelium"],
+        "campaign": "Operation StellarParticle - Government and supply chain targeting",
+        "target_sectors": ["Government", "Technology", "Research", "Think Tanks"],
+        "target_regions": ["Global", "North America", "Europe", "Asia"]
+      },
+      "ports": [443, 8443, 9443, 10443],
+      "malware_families": ["Sunburst", "Teardrop", "Raindrop", "GoldMax"],
+      "ioc_references": [
+        "CISA Emergency Directive 21-01",
+        "Microsoft Nobelium Analysis"
+      ]
+    },
+    "2.57.121.15": {
+      "is_malicious": true,
+      "threat_level": "HIGH",
+      "country": "Pakistan",
+      "threat_actor": "SideCopy (APT36 variant)",
+      "threat_type": "Advanced Persistent Threat (APT)",
+      "categories": ["Espionage", "APT Infrastructure", "Document Theft"],
+      "first_seen": "2024-08-25",
+      "last_seen": "2025-11-07",
+      "confidence_score": 90,
+      "abuse_score": 87,
+      "description": "Pakistani APT group SideCopy targeting Indian defense research and military organizations.",
+      "mitre_attack": {
+        "tactics": [
+          "Initial Access",
+          "Execution",
+          "Persistence",
+          "Collection",
+          "Exfiltration"
+        ],
+        "techniques": [
+          {
+            "id": "T1566.001",
+            "name": "Phishing: Spearphishing Attachment",
+            "description": "Malicious LNK and archive files in phishing emails"
+          },
+          {
+            "id": "T1204.002",
+            "name": "User Execution: Malicious File",
+            "description": "Tricking users into executing malware"
+          },
+          {
+            "id": "T1053.005",
+            "name": "Scheduled Task/Job: Scheduled Task",
+            "description": "Scheduled tasks for persistence"
+          },
+          {
+            "id": "T1005",
+            "name": "Data from Local System",
+            "description": "Stealing sensitive documents from compromised systems"
+          },
+          {
+            "id": "T1041",
+            "name": "Exfiltration Over C2 Channel",
+            "description": "Document exfiltration through C2 infrastructure"
+          }
+        ],
+        "associated_groups": ["SideCopy", "Transparent Tribe Clone", "APT-C-35"],
+        "campaign": "Operation SideCopy India - Defense document theft",
+        "target_sectors": ["Defense", "Military", "Government", "Research"],
+        "target_regions": ["India", "Afghanistan"]
+      },
+      "ports": [443, 8080, 8443, 9090],
+      "malware_families": ["ActionRAT", "AuTo Stealer", "AllaKore RAT"],
+      "ioc_references": [
+        "Cisco Talos SideCopy Report",
+        "CERT-In SideCopy Alert 2024"
+      ]
+    }
+  },
+  "metadata": {
+    "database_version": "1.0",
+    "last_updated": "2025-11-07",
+    "total_threat_actors": 10,
+    "threat_level_distribution": {
+      "CRITICAL": 6,
+      "HIGH": 4
+    },
+    "country_distribution": {
+      "China": 4,
+      "North Korea": 2,
+      "Pakistan": 2,
+      "Russia": 2,
+      "Iran": 1
+    },
+    "description": "Mock threat intelligence database containing national/state-level APT infrastructure for demonstration purposes. All IPs are associated with known threat actor groups and include MITRE ATT&CK mappings.",
+    "disclaimer": "This is a mock database created for demonstration and testing purposes. The associations between IPs and threat actors are simulated for educational use."
+  }
+}

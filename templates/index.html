@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TICE - Threat Intelligence Correlation Engine</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --danger-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --success-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --warning-gradient: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .main-card {
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+        }
+
+        .header {
+            background: var(--primary-gradient);
+            color: white;
+            padding: 30px;
+            border-radius: 20px 20px 0 0;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            margin: 0;
+        }
+
+        .input-section {
+            padding: 40px;
+            background: white;
+        }
+
+        .ip-input-group {
+            position: relative;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .ip-input-group input {
+            height: 60px;
+            border-radius: 30px;
+            font-size: 1.2rem;
+            padding: 0 140px 0 30px;
+            border: 3px solid #667eea;
+            transition: all 0.3s;
+        }
+
+        .ip-input-group input:focus {
+            box-shadow: 0 0 0 0.25rem rgba(102, 126, 234, 0.25);
+            border-color: #667eea;
+        }
+
+        .ip-input-group button {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            height: 50px;
+            border-radius: 25px;
+            padding: 0 30px;
+            background: var(--primary-gradient);
+            border: none;
+            font-weight: 600;
+            transition: transform 0.2s;
+        }
+
+        .ip-input-group button:hover {
+            transform: scale(1.05);
+        }
+
+        .threat-score {
+            font-size: 5rem;
+            font-weight: 800;
+            margin: 20px 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .risk-low { color: #28a745; }
+        .risk-medium { color: #ffc107; }
+        .risk-high { color: #fd7e14; }
+        .risk-critical { color: #dc3545; }
+
+        .badge-category {
+            font-size: 0.9rem;
+            padding: 8px 15px;
+            margin: 5px;
+            border-radius: 20px;
+            font-weight: 500;
+        }
+
+        .info-card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 5px solid #667eea;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .info-label {
+            font-size: 0.9rem;
+            color: #6c757d;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .info-value {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #2c3e50;
+        }
+
+        .source-badge {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+
+        .source-badge:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+
+        .source-abuseipdb {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+        }
+
+        .source-virustotal {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+        }
+
+        .source-ipapi {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            color: white;
+        }
+
+        .source-ipqualityscore {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            color: white;
+        }
+
+        .source-shodan {
+            background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);
+            color: white;
+        }
+
+        .loading-spinner {
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #667eea;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .export-btn {
+            background: var(--success-gradient);
+            border: none;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: transform 0.2s;
+            margin: 5px;
+        }
+
+        .export-btn:hover {
+            transform: scale(1.05);
+            color: white;
+        }
+
+        .pdf-btn {
+            background: var(--danger-gradient);
+            border: none;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: transform 0.2s;
+            margin: 5px;
+        }
+
+        .pdf-btn:hover {
+            transform: scale(1.05);
+            color: white;
+        }
+
+        .pdf-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .detail-section {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 20px;
+        }
+
+        .detail-section h5 {
+            color: #667eea;
+            font-weight: 700;
+            margin-bottom: 20px;
+            font-size: 1.4rem;
+        }
+
+        .score-breakdown {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .score-item {
+            background: white;
+            padding: 15px;
+            border-radius: 12px;
+            text-align: center;
+            border: 2px solid #e9ecef;
+        }
+
+        .score-item-label {
+            font-size: 0.85rem;
+            color: #6c757d;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .score-item-value {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #667eea;
+        }
+
+        .ports-section, .vulns-section {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+        }
+
+        .port-badge {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 5px 12px;
+            margin: 3px;
+            border-radius: 15px;
+            font-size: 0.9rem;
+        }
+
+        .alert-custom {
+            border-radius: 15px;
+            border: none;
+            padding: 20px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="main-card">
+            <!-- Header -->
+            <div class="header">
+                <h1><i class="fas fa-shield-alt"></i> TICE</h1>
+                <p>Threat Intelligence Correlation Engine</p>
+                <p style="font-size: 0.9rem; opacity: 0.8; margin-top: 10px;">
+                    <i class="fas fa-robot"></i> AI-Powered Multi-Source Threat Analysis
+                </p>
+            </div>
+
+            <!-- Input Section -->
+            <div class="input-section">
+                <div class="ip-input-group">
+                    <input type="text" id="ipInput" class="form-control" 
+                           placeholder="Enter IP Address (e.g., 8.8.8.8)" 
+                           aria-label="IP Address">
+                    <button id="analyzeBtn" class="btn btn-primary">
+                        <i class="fas fa-search"></i> Analyze
+                    </button>
+                </div>
+                <p class="text-center text-muted mt-3 mb-0">
+                    <small>Powered by 5 threat intelligence sources + Machine Learning</small>
+                </p>
+            </div>
+
+            <!-- Loading State -->
+            <div id="loadingDiv" style="display: none;" class="text-center py-5">
+                <div class="loading-spinner"></div>
+                <p class="mt-3 text-muted"><strong>Analyzing threat intelligence...</strong></p>
+                <p class="text-muted"><small>Querying AbuseIPDB, VirusTotal, IPQualityScore, Shodan, and IP-API</small></p>
+            </div>
+
+            <!-- Error Display -->
+            <div id="errorDiv" class="alert alert-danger alert-custom mx-4" style="display: none;" role="alert">
+                <i class="fas fa-exclamation-triangle"></i> <span id="errorMessage"></span>
+            </div>
+
+            <!-- Results Section -->
+            <div id="resultCard" style="display: none;">
+                <div class="px-4 pb-4">
+                    <!-- Threat Score Header -->
+                    <div class="text-center my-4">
+                        <h2 class="mb-3">Threat Analysis Report</h2>
+                        <div class="threat-score" id="threatScore">0</div>
+                        <h3 class="mb-4" id="riskLevel">UNKNOWN RISK</h3>
+                        
+                        <!-- Categories -->
+                        <div id="categoriesDiv" class="mb-4"></div>
+
+                        <!-- Sources Consulted -->
+                        <div class="detail-section">
+                            <h5><i class="fas fa-database"></i> Intelligence Sources</h5>
+                            <div id="sourcesDiv" class="text-center"></div>
+                            
+                            <!-- API Score Breakdown -->
+                            <div class="score-breakdown" id="scoreBreakdown"></div>
+                        </div>
+                    </div>
+
+                    <!-- Info Grid -->
+                    <div class="row g-3 my-4">
+                        <div class="col-md-6">
+                            <div class="info-card">
+                                <div class="info-label"><i class="fas fa-globe"></i> IP Address</div>
+                                <div class="info-value" id="ipAddress">-</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="info-card">
+                                <div class="info-label"><i class="fas fa-percentage"></i> Confidence</div>
+                                <div class="info-value" id="confidence">-</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="info-card">
+                                <div class="info-label"><i class="fas fa-flag"></i> Country</div>
+                                <div class="info-value" id="country">-</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="info-card">
+                                <div class="info-label"><i class="fas fa-exclamation-circle"></i> Abuse Reports</div>
+                                <div class="info-value" id="reports">-</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="info-card">
+                                <div class="info-label"><i class="fas fa-network-wired"></i> ISP / Organization</div>
+                                <div class="info-value" id="isp">-</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="info-card">
+                                <div class="info-label"><i class="fas fa-hashtag"></i> ASN</div>
+                                <div class="info-value" id="asn">-</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Additional Details -->
+                    <div id="additionalDetails"></div>
+
+                    <!-- ML Prediction Section -->
+                    <div id="mlPredictionSection" style="display: none;" class="detail-section my-4">
+                        <h5><i class="fas fa-brain"></i> AI/ML Prediction</h5>
+                        <div class="row g-3">
+                            <div class="col-md-3">
+                                <div class="score-item">
+                                    <div class="score-item-label">ML Score</div>
+                                    <div class="score-item-value" id="mlScore">-</div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="score-item">
+                                    <div class="score-item-label">Risk Level</div>
+                                    <div class="score-item-value" id="mlRisk">-</div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="score-item">
+                                    <div class="score-item-label">Probability</div>
+                                    <div class="score-item-value" id="mlProb">-</div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="score-item">
+                                    <div class="score-item-label">Confidence</div>
+                                    <div class="score-item-value" id="mlConf">-</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Export Buttons -->
+                    <div class="text-center mt-4">
+                        <button id="pdfBtn" class="pdf-btn" disabled>
+                            <i class="fas fa-file-pdf"></i> Download PDF Report
+                        </button>
+                        <button id="exportBtn" class="export-btn">
+                            <i class="fas fa-download"></i> Export JSON Report
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="text-center mt-4 text-white">
+            <p class="mb-1"><strong>TICE v1.0</strong> - AI-Driven Threat Intelligence Platform</p>
+            <p class="mb-0"><small>Integrates AbuseIPDB • VirusTotal • IPQualityScore • Shodan • IP-API + Machine Learning</small></p>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        let currentReport = null;
+
+        document.getElementById('analyzeBtn').addEventListener('click', analyzeIP);
+        document.getElementById('ipInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') analyzeIP();
+        });
+        document.getElementById('exportBtn').addEventListener('click', exportJSON);
+        document.getElementById('pdfBtn').addEventListener('click', downloadPDF);
+
+        async function analyzeIP() {
+            const ipInput = document.getElementById('ipInput');
+            const ip = ipInput.value.trim();
+
+            if (!ip) {
+                showError('Please enter an IP address');
+                return;
+            }
+
+            // Show loading
+            document.getElementById('loadingDiv').style.display = 'block';
+            document.getElementById('resultCard').style.display = 'none';
+            document.getElementById('errorDiv').style.display = 'none';
+            
+            // Disable PDF button during analysis
+            document.getElementById('pdfBtn').disabled = true;
+
+            try {
+                const response = await fetch('/api/analyze', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        ip_address: ip,
+                        use_cache: true
+                    })
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    showError(data.error || 'Analysis failed');
+                    return;
+                }
+
+                currentReport = data;
+                displayResults(data);
+
+            } catch (error) {
+                showError('Network error: ' + error.message);
+            } finally {
+                document.getElementById('loadingDiv').style.display = 'none';
+            }
+        }
+
+        function displayResults(data) {
+            // Threat score and risk level
+            const score = Math.round(data.threat_score);
+            document.getElementById('threatScore').textContent = score;
+            
+            const riskClass = 'risk-' + data.risk_level;
+            document.getElementById('threatScore').className = 'threat-score ' + riskClass;
+            document.getElementById('riskLevel').textContent = data.risk_level.toUpperCase() + ' RISK';
+            document.getElementById('riskLevel').className = riskClass;
+
+            // Categories
+            const categoriesDiv = document.getElementById('categoriesDiv');
+            categoriesDiv.innerHTML = '';
+            if (data.categories && data.categories.length > 0) {
+                data.categories.forEach(cat => {
+                    const badge = document.createElement('span');
+                    badge.className = 'badge bg-danger badge-category';
+                    badge.textContent = cat;
+                    categoriesDiv.appendChild(badge);
+                });
+            }
+
+            // Info fields
+            document.getElementById('ipAddress').textContent = data.ip_address;
+            document.getElementById('country').textContent = data.geolocation.country || 'Unknown';
+            document.getElementById('isp').textContent = data.network_info.isp || data.network_info.organization || 'Unknown';
+            document.getElementById('confidence').textContent = Math.round(data.confidence) + '%';
+            document.getElementById('reports').textContent = data.reports_count || '0';
+            document.getElementById('asn').textContent = data.network_info.asn || 'Unknown';
+
+            // Sources badges
+            const sourcesDiv = document.getElementById('sourcesDiv');
+            sourcesDiv.innerHTML = '';
+            const sourceNames = {
+                'abuseipdb': 'AbuseIPDB',
+                'virustotal': 'VirusTotal',
+                'ipapi': 'IP-API',
+                'ipqualityscore': 'IPQualityScore',
+                'shodan': 'Shodan'
+            };
+            
+            Object.keys(data.sources || {}).forEach(source => {
+                const badge = document.createElement('span');
+                badge.className = `source-badge source-${source}`;
+                badge.innerHTML = `<i class="fas fa-check-circle"></i> ${sourceNames[source] || source}`;
+                sourcesDiv.appendChild(badge);
+            });
+
+            // Score breakdown
+            const scoreBreakdown = document.getElementById('scoreBreakdown');
+            scoreBreakdown.innerHTML = '';
+            Object.entries(data.source_scores || {}).forEach(([source, score]) => {
+                const div = document.createElement('div');
+                div.className = 'score-item';
+                div.innerHTML = `
+                    <div class="score-item-label">${sourceNames[source] || source}</div>
+                    <div class="score-item-value">${Math.round(score)}</div>
+                `;
+                scoreBreakdown.appendChild(div);
+            });
+
+            // Additional details
+            displayAdditionalDetails(data);
+
+            // ML Prediction
+            if (data.ml_prediction && data.ml_prediction.available) {
+                document.getElementById('mlPredictionSection').style.display = 'block';
+                document.getElementById('mlScore').textContent = Math.round(data.ml_prediction.predicted_threat_score);
+                document.getElementById('mlRisk').textContent = (data.ml_prediction.predicted_risk_level || 'unknown').toUpperCase();
+                document.getElementById('mlProb').textContent = Math.round(data.ml_prediction.malicious_probability) + '%';
+                document.getElementById('mlConf').textContent = Math.round(data.ml_prediction.confidence) + '%';
+            } else {
+                document.getElementById('mlPredictionSection').style.display = 'none';
+            }
+
+            // Show results
+            document.getElementById('resultCard').style.display = 'block';
+            
+            // Enable PDF download button
+            document.getElementById('pdfBtn').disabled = false;
+        }
+
+        function displayAdditionalDetails(data) {
+            const detailsDiv = document.getElementById('additionalDetails');
+            detailsDiv.innerHTML = '';
+
+            // Network flags
+            const networkInfo = data.network_info || {};
+            const flags = [];
+            if (networkInfo.is_vpn) flags.push({ icon: 'fa-user-secret', text: 'VPN Detected', color: 'warning' });
+            if (networkInfo.is_proxy) flags.push({ icon: 'fa-mask', text: 'Proxy Detected', color: 'warning' });
+            if (networkInfo.is_tor) flags.push({ icon: 'fa-eye-slash', text: 'Tor Exit Node', color: 'danger' });
+            if (networkInfo.is_hosting) flags.push({ icon: 'fa-server', text: 'Hosting Provider', color: 'info' });
+
+            if (flags.length > 0) {
+                const flagsHtml = flags.map(flag => 
+                    `<span class="badge bg-${flag.color} me-2 mb-2" style="font-size: 0.95rem; padding: 8px 15px;">
+                        <i class="fas ${flag.icon}"></i> ${flag.text}
+                    </span>`
+                ).join('');
+                detailsDiv.innerHTML += `
+                    <div class="detail-section">
+                        <h5><i class="fas fa-flag"></i> Network Indicators</h5>
+                        ${flagsHtml}
+                    </div>
+                `;
+            }
+
+            // Open Ports (from Shodan)
+            if (data.ports && data.ports.length > 0) {
+                const portsHtml = data.ports.slice(0, 20).map(port => 
+                    `<span class="port-badge">${port}</span>`
+                ).join('');
+                detailsDiv.innerHTML += `
+                    <div class="detail-section">
+                        <h5><i class="fas fa-door-open"></i> Open Ports (${data.ports.length})</h5>
+                        <div class="ports-section">${portsHtml}</div>
+                    </div>
+                `;
+            }
+
+            // Related Domains
+            if (data.related_entities && data.related_entities.domains && data.related_entities.domains.length > 0) {
+                const domainsHtml = data.related_entities.domains.slice(0, 10).map(domain => 
+                    `<div class="mb-2"><i class="fas fa-globe text-primary"></i> ${domain}</div>`
+                ).join('');
+                detailsDiv.innerHTML += `
+                    <div class="detail-section">
+                        <h5><i class="fas fa-link"></i> Related Domains</h5>
+                        ${domainsHtml}
+                    </div>
+                `;
+            }
+        }
+
+        function showError(message) {
+            const errorDiv = document.getElementById('errorDiv');
+            document.getElementById('errorMessage').textContent = message;
+            errorDiv.style.display = 'block';
+        }
+
+        function exportJSON() {
+            if (!currentReport) return;
+            
+            const dataStr = JSON.stringify(currentReport, null, 2);
+            const dataBlob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `threat-report-${currentReport.ip_address}-${Date.now()}.json`;
+            link.click();
+            URL.revokeObjectURL(url);
+        }
+
+        async function downloadPDF() {
+            if (!currentReport) return;
+            
+            const pdfBtn = document.getElementById('pdfBtn');
+            const originalText = pdfBtn.innerHTML;
+            
+            try {
+                // Show loading state
+                pdfBtn.disabled = true;
+                pdfBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generating PDF...';
+                
+                // Fetch PDF from backend
+                const response = await fetch(`/api/download-report/${currentReport.ip_address}`);
+                
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.error || 'Failed to generate PDF');
+                }
+                
+                // Get the PDF blob
+                const blob = await response.blob();
+                
+                // Create download link
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `TICE-Report-${currentReport.ip_address.replace(/\./g, '-')}.pdf`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                window.URL.revokeObjectURL(url);
+                
+                // Show success message briefly
+                pdfBtn.innerHTML = '<i class="fas fa-check"></i> PDF Downloaded!';
+                setTimeout(() => {
+                    pdfBtn.innerHTML = originalText;
+                    pdfBtn.disabled = false;
+                }, 2000);
+                
+            } catch (error) {
+                console.error('PDF download error:', error);
+                pdfBtn.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Error';
+                setTimeout(() => {
+                    pdfBtn.innerHTML = originalText;
+                    pdfBtn.disabled = false;
+                }, 2000);
+                showError(`PDF Error: ${error.message}`);
+            }
+        }
+    </script>
+</body>
+</html>
