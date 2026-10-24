@@ -419,7 +419,8 @@ For questions or support:
 The project is deployed as two services:
 
 1. **Backend:** create a Render Web Service from the repository. Render will use
-   [`render.yaml`](./render.yaml), run `gunicorn`, and expose `/api/health` for
+   [`render.yaml`](./render.yaml), use the Python version in
+   [`runtime.txt`](./runtime.txt), run `gunicorn`, and expose `/api/health` for
    health checks.
 2. **Frontend:** import `frontend/frontendhackathon-master` into Vercel. The
    included [`vercel.json`](./frontend/frontendhackathon-master/vercel.json)
