@@ -1,0 +1,31 @@
+services:
+  - type: web
+    name: ip-radar-api
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn --bind 0.0.0.0:$PORT --workers 1 --threads 4 --timeout 120 app:app
+    healthCheckPath: /api/health
+    envVars:
+      - key: FLASK_ENV
+        value: production
+      - key: FLASK_DEBUG
+        value: "False"
+      - key: SECRET_KEY
+        generateValue: true
+      - key: FRONTEND_URL
+        sync: false
+      - key: ABUSEIPDB_API_KEY
+        sync: false
+      - key: VIRUSTOTAL_API_KEY
+        sync: false
+      - key: IPQUALITYSCORE_API_KEY
+        sync: false
+      - key: SHODAN_API_KEY
+        sync: false
+      - key: GREYNOISE_API_KEY
+        sync: false
+      - key: IPGEOLOCATION_API_KEY
+        sync: false
+      - key: ALIENVAULT_OTX_API_KEY
+        sync: false

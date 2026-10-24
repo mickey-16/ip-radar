@@ -18,6 +18,7 @@ class Config:
     # Server Settings
     HOST = os.getenv('HOST', '0.0.0.0')
     PORT = int(os.getenv('PORT', 5000))
+    FRONTEND_URL = os.getenv('FRONTEND_URL', '')
     
     # API Keys
     ABUSEIPDB_API_KEY = os.getenv('ABUSEIPDB_API_KEY', '')

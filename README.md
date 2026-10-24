@@ -414,6 +414,25 @@ For questions or support:
 
 ---
 
+## Deployment
+
+The project is deployed as two services:
+
+1. **Backend:** create a Render Web Service from the repository. Render will use
+   [`render.yaml`](./render.yaml), run `gunicorn`, and expose `/api/health` for
+   health checks.
+2. **Frontend:** import `frontend/frontendhackathon-master` into Vercel. The
+   included [`vercel.json`](./frontend/frontendhackathon-master/vercel.json)
+   builds the Vite app and serves `dist`.
+
+Set the following environment variables in the hosting dashboards:
+
+- Render: `FRONTEND_URL` and the provider API keys listed in `.env.example`.
+- Vercel: `VITE_API_BASE_URL` to the public Render backend URL, and
+  `VITE_GOOGLE_MAPS_API_KEY` if map rendering is required.
+
+Do not commit `.env` files or API keys.
+
 <div align="center">
 Made with ❤️ for cybersecurity professionals
 

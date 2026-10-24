@@ -23,8 +23,9 @@ app = Flask(__name__)
 env = os.getenv('FLASK_ENV', 'development')
 app.config.from_object(config[env])
 
-# Enable CORS
-CORS(app)
+# Enable CORS. Render and local development can use different frontend origins.
+allowed_origins = app.config.get('FRONTEND_URL') or '*'
+CORS(app, origins=allowed_origins)
 
 # Initialize Threat Correlator
 correlator = ThreatCorrelator(app.config)
